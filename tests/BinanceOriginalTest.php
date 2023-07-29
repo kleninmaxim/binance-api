@@ -17,7 +17,7 @@ use BinanceApi\Docs\MarketDataEndpoint\SymbolPriceTicker;
 use BinanceApi\Docs\MarketDataEndpoint\TestConnectivity;
 use BinanceApi\Docs\MarketDataEndpoint\TickerPriceChangeStatistics24hr;
 use BinanceApi\Docs\MarketDataEndpoint\UIKlines;
-use BinanceApi\Exception\BinanceException;
+use BinanceApi\Docs\WalletEndpoints\SwitchOnOffBusdAndStableCoinsConversion;
 use BinanceApi\Exception\MethodNotExistException;
 use BinanceApi\Helper\ResponseHandler\GuzzlePsr7ResponseHandler;
 use GuzzleHttp\Client;
@@ -50,7 +50,7 @@ class BinanceOriginalTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws Exception|MethodNotExistException
      */
     public function test_add_new_alias_for_class()
     {
@@ -70,6 +70,39 @@ class BinanceOriginalTest extends TestCase
         $this->expectException(MethodNotExistException::class);
 
         $binance->nonExistingMethod();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function test_binance_return_with_null()
+    {
+        $client = $this->createMock(Client::class);
+
+        $client->expects($this->once())
+            ->method('request')
+            ->with(
+                $this->equalTo('POST'),
+                $this->equalTo('https://api.binance.com/sapi/v1/capital/contract/convertible-coins'),
+                $this->callback(function ($options) {
+                    return $options['headers']['X-MBX-APIKEY'] == 'apiKey' &&
+                        $options['form_params']['coin'] == 'USDT' &&
+                        $options['form_params']['enable'] == false &&
+                        $options['form_params']['timestamp'] == 1499865549590 &&
+                        $options['form_params']['signature'] == 'some-random-signature';
+                }),
+            )
+            ->willReturn(new Response(body: SwitchOnOffBusdAndStableCoinsConversion::exampleResponse()));
+
+        $binance = new BinanceOriginal(client: $client);
+
+        $this->assertEquals(
+            SwitchOnOffBusdAndStableCoinsConversion::exampleResponse(),
+            $binance->switchCapitalContractConvertibleCoins(
+                ['X-MBX-APIKEY' => 'apiKey'],
+                body: ['coin' => 'USDT', 'enable' => false, 'timestamp' => 1499865549590, 'signature' => 'some-random-signature']
+            )
+        );
     }
 
     public function test_it_make_http_request()

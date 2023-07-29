@@ -24,13 +24,11 @@ readonly class SymbolPriceTicker implements Endpoint, HasQueryParameters
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 2,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::MEMORY,
+        public null|string $dataSource = DataSources::MEMORY,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Symbol Price Ticker',
         public string $description = 'Latest price for a symbol or symbols.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

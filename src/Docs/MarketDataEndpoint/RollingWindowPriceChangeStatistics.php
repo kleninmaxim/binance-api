@@ -27,13 +27,11 @@ readonly class RollingWindowPriceChangeStatistics implements Endpoint, HasQueryP
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 2,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::DATABASE,
+        public null|string $dataSource = DataSources::DATABASE,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Rolling window price change statistics',
         public string $description = 'Note: This endpoint is different from the GET /api/v3/ticker/24hr endpoint.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

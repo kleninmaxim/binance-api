@@ -4,36 +4,34 @@ namespace BinanceApi\Helper;
 
 class Math
 {
-    public static function isEqualFloats(float $a, float $b, int $decimals = 8): bool
+    /**
+     * @param  float  $a
+     * @param  float  $b
+     * @param  int  $scale
+     * @return bool
+     */
+    public static function isEqualFloats(float $a, float $b, int $scale = 8): bool
     {
-        $intA = intval($a);
-        $intB = intval($b);
-
-        return
-            $intA == $intB &&
-            bccomp(number_format($a - $intA, $decimals), number_format($b - $intB, $decimals), $decimals) == 0;
+        return bcsub($a, $b, $scale) == 0;
     }
 
     /**
-     * Be careful with that function, it can get a non-correct result
-     *
      * @param  float  $number
      * @param  float  $increment
      * @param  bool  $roundUp
+     * @param  int  $scale
      * @return float
      */
-    public static function incrementNumber(float $number, float $increment, bool $roundUp = false): float
+    public static function incrementNumber(float $number, float $increment, bool $roundUp = false, int $scale = 8): float
     {
         if ($roundUp) {
-            $number += $increment;
+            $number = bcadd($number, $increment, $scale);
         }
 
-        return $increment * floor($number / $increment);
+        return bcmul($increment, bcdiv($number, $increment), $scale);
     }
 
     /**
-     * Be careful with that function, it can get a non-correct result
-     *
      * @param  float  $a
      * @param  float  $b
      * @return bool

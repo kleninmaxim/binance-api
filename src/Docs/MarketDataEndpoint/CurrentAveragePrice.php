@@ -24,13 +24,11 @@ readonly class CurrentAveragePrice implements Endpoint, HasQueryParameters
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 1,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::MEMORY,
+        public null|string $dataSource = DataSources::MEMORY,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Current Average Price',
         public string $description = 'Current average price for a symbol.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

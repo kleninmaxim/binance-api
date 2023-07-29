@@ -25,13 +25,11 @@ readonly class TickerPriceChangeStatistics24hr implements Endpoint, HasQueryPara
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 1,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::MEMORY,
+        public null|string $dataSource = DataSources::MEMORY,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = '24hr Ticker Price Change Statistics',
         public string $description = '24 hour rolling window price change statistics. Careful when accessing this with no symbol.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

@@ -27,13 +27,11 @@ readonly class OldTradeLookup implements Endpoint, HasQueryParameters, ProcessRe
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 5,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::DATABASE,
+        public null|string $dataSource = DataSources::DATABASE,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::MARKET_DATA,
         public string $title = 'Old Trade Lookup',
         public string $description = 'Get older market trades.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

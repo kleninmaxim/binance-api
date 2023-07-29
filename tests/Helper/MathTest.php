@@ -20,16 +20,13 @@ class MathTest extends TestCase
         $this->assertTrue(Math::isEqualFloats(12.55, Math::incrementNumber(12.559, 0.01)));
         $this->assertTrue(Math::isEqualFloats(12.3, Math::incrementNumber(12.559, 0.3)));
         $this->assertTrue(Math::isEqualFloats(10, Math::incrementNumber(12.559, 5)));
+        $this->assertTrue(Math::isEqualFloats(14, Math::incrementNumber(12.559, 2, true)));
     }
 
     public function test_it_is_division_without_reminder_correctly()
     {
         $this->assertTrue(Math::isDivisionWithoutRemainder(18, 4.5));
         $this->assertTrue(Math::isDivisionWithoutRemainder(6, 2));
-    }
-
-    public function test_it_is_division_without_reminder_not_correctly()
-    {
-        $this->assertFalse(Math::isDivisionWithoutRemainder(10.1, 0.1));
+        $this->assertFalse(Math::isDivisionWithoutRemainder(6.1, 2));
     }
 }

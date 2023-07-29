@@ -2,6 +2,9 @@
 
 namespace BinanceApi\Docs\GeneralInfo;
 
+use DateTime;
+use DateTimeZone;
+
 /**
  * https://binance-docs.github.io/apidocs/spot/en/#signed-trade-user_data-and-margin-endpoint-security
  */
@@ -10,7 +13,6 @@ class Signed
     public const SIGNED_PARAMETER = 'signature';
     public const SIGNED_TIMING_SECURITY_PARAMETER = 'timestamp';
     public const SIGNED_SIGNATURE_ALGO = 'sha256';
-
 
     /**
      * Serious trading is about timing. Networks can be unstable and unreliable, which can lead to requests taking varying amounts of time to reach the servers. With recvWindow, you can specify that the request must be processed within a certain number of milliseconds or be rejected by the server.
@@ -32,9 +34,9 @@ class Signed
 
     public static function binanceMicrotime(): string
     {
-        [$msec, $sec] = explode(' ', microtime());
+        $dateTime = (new DateTime())->setTimezone((new DateTimeZone('UTC')));
 
-        return $sec . substr($msec, 2, 3);
+        return $dateTime->getTimestamp().substr($dateTime->format('u'), 0, -3);
     }
 
     public static function exampleSignatureRequestBody(): array

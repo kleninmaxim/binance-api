@@ -34,4 +34,21 @@ class GeneralApiInformation
     public const ERROR_CODE_AND_MESSAGES = ['code', 'msg'];
 
     public const DEFAULT_TIMEZONE = 'UTC';
+
+    /**
+     * Check that response data is error message or not
+     *
+     * @param  array|null  $data
+     * @return bool
+     */
+    public static function isErrorMessage(null|array $data): bool
+    {
+        foreach (GeneralApiInformation::ERROR_CODE_AND_MESSAGES as $errorCode) {
+            if (! isset($data[$errorCode])) {
+                return false;
+            }
+        }
+
+        return count(GeneralApiInformation::ERROR_CODE_AND_MESSAGES) == count($data);
+    }
 }

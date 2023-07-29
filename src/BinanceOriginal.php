@@ -6,7 +6,6 @@ use Exception;
 use GuzzleHttp\Client;
 use BinanceApi\Docs\Const\BinanceApi\Endpoint;
 use BinanceApi\Docs\GeneralInfo\GeneralApiInformation;
-use BinanceApi\Exception\BinanceException;
 use BinanceApi\Helper\Http;
 use BinanceApi\Helper\ResponseHandler\OriginalDecodedHandler;
 use BinanceApi\Helper\ResponseHandler\ResponseHandler;
@@ -55,9 +54,10 @@ class BinanceOriginal
      *
      * First is resolve alias, do http request and handle this request
      *
-     * @param  string  $name name of method
-     * @param  array  $arguments parameters of this method
+     * @param  string  $name  name of method
+     * @param  array  $arguments  parameters of this method
      * @return mixed handle response getting from binance
+     * @throws Exception
      */
     public function __call(string $name, array $arguments): mixed
     {

@@ -25,13 +25,11 @@ readonly class OrderBook implements Endpoint, HasQueryParameters, ProcessRespons
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = null,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::MEMORY,
+        public null|string $dataSource = DataSources::MEMORY,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Order Book',
         public string $description = '',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

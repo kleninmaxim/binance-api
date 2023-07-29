@@ -27,13 +27,11 @@ readonly class KlineCandlestickData implements Endpoint, HasQueryParameters, Pro
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 1,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::DATABASE,
+        public null|string $dataSource = DataSources::DATABASE,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Kline/Candlestick Data',
         public string $description = 'Kline/candlestick bars for a symbol.'."\n".'Klines are uniquely identified by their open time.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

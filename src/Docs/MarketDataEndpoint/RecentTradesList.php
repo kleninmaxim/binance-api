@@ -27,13 +27,11 @@ readonly class RecentTradesList implements Endpoint, HasQueryParameters, Process
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 1,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::MEMORY,
+        public null|string $dataSource = DataSources::MEMORY,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Recent Trades List',
         public string $description = 'Get recent trades.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

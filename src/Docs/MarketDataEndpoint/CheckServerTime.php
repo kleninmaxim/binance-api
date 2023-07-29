@@ -24,13 +24,11 @@ readonly class CheckServerTime implements Endpoint, ProcessResponse
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 1,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::MEMORY,
+        public null|string $dataSource = DataSources::MEMORY,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Check Server Time',
         public string $description = 'Test connectivity to the Rest API and get the current server time.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

@@ -28,13 +28,11 @@ readonly class CompressedAggregateTradesList implements Endpoint, HasQueryParame
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 1,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::DATABASE,
+        public null|string $dataSource = DataSources::DATABASE,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Compressed/Aggregate Trades List',
         public string $description = 'Get compressed, aggregate trades. Trades that fill at the time, from the same order, with the same price will have the quantity aggregated.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

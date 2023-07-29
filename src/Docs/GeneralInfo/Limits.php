@@ -25,4 +25,6 @@ class Limits
     public const SAPI_IP_LIMIT_USED_WEIGHT_MINUTE = self::SAPI_IP_LIMIT_USED_WEIGHT.'-1'.self::INTERVAL_LETTER_MINUTE;
     public const SAPI_LIMIT_BASED_ON_IP_COUNT = 12000;
     public const SAPI_LIMIT_BASED_ON_IP_INTERVAL_IN_SECONDS = 60;
+
+    public const IP_LIMITS_HEADER = 'Retry-After';
 }

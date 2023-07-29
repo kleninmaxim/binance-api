@@ -27,13 +27,11 @@ readonly class UIKlines implements Endpoint, HasQueryParameters, ProcessResponse
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 1,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::DATABASE,
+        public null|string $dataSource = DataSources::DATABASE,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'UIKlines',
         public string $description = 'The request is similar to klines having the same parameters and response.'."\n".'uiKlines return modified kline data, optimized for presentation of candlestick charts.',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 

@@ -25,13 +25,11 @@ readonly class ExchangeInformation implements Endpoint, HasQueryParameters, Proc
         public string $httpMethod = HttpMethod::GET,
         public null|int $weight = 10,
         public string $weightBased = BanBased::IP,
-        public string $dataSource = DataSources::MEMORY,
+        public null|string $dataSource = DataSources::MEMORY,
         public null|string $encryption = null,
         public string $endpointType = EndpointSecurityType::NONE,
         public string $title = 'Exchange Information',
         public string $description = 'Current exchange trading rules and symbol information',
-        public string $version = 'v3',
-        public bool $isSapi = false,
     ) {
     }
 
