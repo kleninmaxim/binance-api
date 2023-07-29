@@ -9,6 +9,10 @@ This project requires [php](https://www.php.net/) version more or equal 8.2. Als
 
 ## Installation
 
+```shell
+composer require kleninm/binance-api
+```
+
 ## Quick start
 Every original method's name in `\BinanceApi\Binance` class created by name from url after prefix `v1`, `v2` or `v3`.
 
