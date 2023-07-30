@@ -1,4 +1,10 @@
 # Binance PHP API Client
+
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/kleninmaxim/binance-api/tests.yml?label=Tests)]([https://travis-ci.com/ccxt/ccxt](https://github.com/kleninmaxim/binance-api/actions/workflows/tests.yml))
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/kleninmaxim/binance-api/style.yml?label=StyleCI)](https://github.com/kleninmaxim/binance-api/actions/workflows/style.yml)
+[![Packagist License (custom server)](https://img.shields.io/packagist/l/kleninm/binance-api?style=flat-square)](https://github.com/kleninmaxim/binance-api#license)
+[![GitHub release (with filter)](https://img.shields.io/github/v/release/kleninmaxim/binance-api)](https://github.com/kleninmaxim/binance-api/releases)
+
 The purpose of this project is to assist you in creating your own projects that interact with the [Binance SPOT API](https://binance-docs.github.io/apidocs/spot/en/).
 
 Supported in the current version [Wallet Endpoints](https://binance-docs.github.io/apidocs/spot/en/#wallet-endpoints),
