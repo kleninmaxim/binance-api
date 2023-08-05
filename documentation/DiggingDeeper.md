@@ -26,19 +26,13 @@ But you still can get:
 Endpoint is the main core of information on which the binance classes rely
 
 Let's look at one random Endpoint class:
+
 ```php
 <?php
 
 namespace BinanceApi\Docs\MarketDataEndpoint;
 
-use BinanceApi\Docs\Const\BinanceApi\Endpoint;
-use BinanceApi\Docs\Const\BinanceApi\HasQueryParameters;
-use BinanceApi\Docs\Const\BinanceApi\ProcessResponse;
-use BinanceApi\Docs\Const\Exception\EndpointQueryException;
-use BinanceApi\Docs\GeneralInfo\Const\BanBased;
-use BinanceApi\Docs\GeneralInfo\Const\HttpMethod;
-use BinanceApi\Docs\GeneralInfo\DataSources;
-use BinanceApi\Docs\GeneralInfo\EndpointSecurityType;
+use BinanceApi\Spot\Docs\Const\BinanceApi\Endpoint;use BinanceApi\Spot\Docs\Const\BinanceApi\HasQueryParameters;use BinanceApi\Spot\Docs\Const\BinanceApi\ProcessResponse;use BinanceApi\Spot\Docs\GeneralInfo\Const\BanBased;use BinanceApi\Spot\Docs\GeneralInfo\Const\HttpMethod;use BinanceApi\Spot\Docs\GeneralInfo\DataSources;use BinanceApi\Spot\Docs\GeneralInfo\EndpointSecurityType;
 
 /**
  * https://binance-docs.github.io/apidocs/spot/en/#order-book
@@ -102,10 +96,11 @@ That class must implement by `BinanceApi\Docs\Const\BinanceApi\Endpoint` class
 ### Rewrite original Endpoint
 
 You can extend that endpoint class and rewrite everything you want
+
 ```php
 <?php
 
-readonly class ExtendedKlineCandlestickData extends \BinanceApi\Docs\MarketDataEndpoint\KlineCandlestickData
+readonly class ExtendedKlineCandlestickData extends \BinanceApi\Spot\Docs\MarketDataEndpoint\KlineCandlestickData
 {
     public function processResponse(array $response): array
     {
@@ -122,7 +117,7 @@ readonly class ExtendedKlineCandlestickData extends \BinanceApi\Docs\MarketDataE
 }
 
 // Replace default alias in 'klines'. See the topic below about it
-$binance->binanceOriginal->addAlias(\BinanceApi\Docs\MarketDataEndpoint\KlineCandlestickData::METHOD, ExtendedKlineCandlestickData::class);
+$binance->binanceOriginal->addAlias(\BinanceApi\Spot\Docs\MarketDataEndpoint\KlineCandlestickData::METHOD, ExtendedKlineCandlestickData::class);
 
 $binance->klines('BTCUSDT', '1d', limit: 5); // and will handle the content of response in that format
 ```
@@ -132,7 +127,7 @@ $binance->klines('BTCUSDT', '1d', limit: 5); // and will handle the content of r
 You can create your own Endpoint by previous topic or use already existing Endpoint
 
 ```php
-$binance = new \BinanceApi\Binance();
+$binance = new \BinanceApi\Spot\Binance();
 $binance->binanceOriginal->addAlias('yourCustomFunction', YourCustomEndpoint::class);
 
 // If YourCustomEndpoint::class implements of BinanceApi\Docs\Const\BinanceApi\HasQueryParameters
@@ -143,8 +138,8 @@ $binance->depth('BTCUSDT', 5);
 ```
 
 ```php
-$binance = new \BinanceApi\Binance();
-$binance->binanceOriginal->addAlias('yourCustomFunctionToGetOrderbook', BinanceApi\Docs\MarketDataEndpoint\OrderBook::class);
+$binance = new \BinanceApi\Spot\Binance();
+$binance->binanceOriginal->addAlias('yourCustomFunctionToGetOrderbook', \BinanceApi\Spot\Docs\MarketDataEndpoint\OrderBook::class);
 
 // Now yourCustomFunctionToGetOrderbook() and depth() are identical and fully the same
 $binance->yourCustomFunctionToGetOrderbook('BTCUSDT', 5);
@@ -152,8 +147,9 @@ $binance->depth('BTCUSDT', 5);
 ```
 
 ### Let's talk about BinanceOriginal
+
  ```php
- $binance = new \BinanceApi\BinanceOriginal();
+ $binance = new \BinanceApi\Spot\BinanceSpotOriginal();
 
  $orderbook = $binance->depth(query: ['symbol' => 'BTCUSDT', 'limit' => 5]);
  ```
@@ -205,8 +201,9 @@ Each method in BinanceOriginal has fixed parameters:
 All these parameters for http request.
 
 You can have access to `\BinanceApi\BinanceOriginal` class through `\BinanceApi\Binance` class
+
 ```php
-$binance = new \BinanceApi\Binance();
+$binance = new \BinanceApi\Spot\Binance();
 
 $binance->binanceOriginal; // This is \BinanceApi\BinanceOriginal::class
 
@@ -221,21 +218,22 @@ $body = [
    'timeInForce' => 'GTC', 
    'quantity' => 0.01, 
    'price' => 20000, 
-   'timestamp' => \BinanceApi\Docs\GeneralInfo\Signed::binanceMicrotime(), 
+   'timestamp' => \BinanceApi\Spot\Docs\GeneralInfo\Signed::binanceMicrotime(), 
 ];
-$body['signature'] = \BinanceApi\Docs\GeneralInfo\Signed::signature(http_build_query($body), 'your-api-secret');
+$body['signature'] = \BinanceApi\Spot\Docs\GeneralInfo\Signed::signature(http_build_query($body), 'your-api-secret');
 
 $binance->binanceOriginal->order(['X-MBX-APIKEY' => 'your-api-key'], body: $body);
 ```
 
 ### Return response in different variations
+
 ```php
 // every result you will get as Guzzle Psr7 Format
-$binanceOriginal = new \BinanceApi\BinanceOriginal(new \BinanceApi\Helper\ResponseHandler\GuzzlePsr7ResponseHandler());
+$binanceOriginal = new \BinanceApi\Spot\BinanceSpotOriginal(new \BinanceApi\App\ResponseHandler\GuzzlePsr7ResponseHandler());
 $binanceOriginal->depth(query: ['symbol' => 'BTCUSDT', 'limit' => 10]); // GuzzleHttp\Psr7\Response Object
  
  // every result you will get as encoded message
-$binanceOriginal = new \BinanceApi\BinanceOriginal(new \BinanceApi\Helper\ResponseHandler\OriginalResponseHandler());
+$binanceOriginal = new \BinanceApi\Spot\BinanceSpotOriginal(new \BinanceApi\App\ResponseHandler\OriginalResponseHandler());
 $binanceOriginal->depth(query: ['symbol' => 'BTCUSDT', 'limit' => 10]); // string(686) "{"lastUpdateId":38045811823,"bids":[["29089.15000000","0.83957000"],["29089.10000000","0.00402000"],["29089.00000000","0.00384000"],["29088.91000000","0.00083000"],["29088.68000000","0.39883000"],["29088.66000000","0.38883000"],["29088.58000000","0.02548000"],["29088.53000000","0.00170000"],["29088.33000000","0.00481000"],["29088.31000000","0.00035000"]],"asks":[["29089.16000000","8.54491000"],["29089.19000000","0.34384000"],["29089.42000000","0.09425000"],["29089.43000000","0.05400000"],["29089.47000000","0.18862000"],["29089.48000000","0.00090000"],["29089.49000000","0.34383000"],["29089.89000000","0.15706000"],["29089.91000000","0.20000000"],["29089.99000000","0.73589000"]]}"
 ```
 

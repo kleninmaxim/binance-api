@@ -2,10 +2,10 @@
 
 namespace BinanceApi\Helper;
 
+use BinanceApi\Spot\Docs\GeneralInfo\Const\HttpMethod;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use BinanceApi\Docs\GeneralInfo\Const\HttpMethod;
 use Psr\Http\Message\ResponseInterface;
 
 /**

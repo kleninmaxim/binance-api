@@ -4,24 +4,27 @@ This topic all about `\BinanceApi\Binance` class
 
 ### Create a class with different endpoints
 _By default, it: `https://api.binance.com`_
+
 ```php
-$binanceOriginalEndpoint = new \BinanceApi\Binance();
-$binance = new \BinanceApi\Binance('https://api3.binance.com');
+$binanceOriginalEndpoint = new \BinanceApi\Spot\Binance();
+$binance = new \BinanceApi\Spot\Binance('https://api3.binance.com');
 
 // Or through constants
-$binance = new \BinanceApi\Binance(\BinanceApi\Docs\GeneralInfo\GeneralApiInformation::GCP_ENDPOINT);
-$binance = new \BinanceApi\Binance(\BinanceApi\Docs\GeneralInfo\GeneralApiInformation::API1_ENDPOINT);
+$binance = new \BinanceApi\Spot\Binance(\BinanceApi\Spot\Docs\GeneralInfo\GeneralApiInformation::GCP_ENDPOINT);
+$binance = new \BinanceApi\Spot\Binance(\BinanceApi\Spot\Docs\GeneralInfo\GeneralApiInformation::API1_ENDPOINT);
 ```
 ### Create a class to use [testnet](https://testnet.binance.vision/)
+
 ```php
-$binanceTestNet = new \BinanceApi\Binance(TestNet::BASE_ENDPOINT);
+$binanceTestNet = new \BinanceApi\Spot\Binance(TestNet::BASE_ENDPOINT);
 ```
 
 ### Set Guzzle Client
 If you need to replace default Guzzle Client on yours, here an example:
+
 ```php
 $client = new \GuzzleHttp\Client(['timeout' => 10]);
-$binance = new \BinanceApi\Binance(client: $client);
+$binance = new \BinanceApi\Spot\Binance(client: $client);
 ```
 See about Guzzle Client [here](https://docs.guzzlephp.org/en/stable/)
 
@@ -124,19 +127,20 @@ $binance->setApiKeys($apiKey);
 ```
 
 ### Exceptions
+
 ```php
 try {
     $result = $binance->depth('BTCUSDT', 2);
-} catch (BinanceApi\Docs\Const\Exception\EndpointQueryException $e) {
+} catch (\BinanceApi\Spot\Docs\Const\Exception\EndpointQueryException $e) {
     // Here exception with Endpoint query parameters related,
     // For example, you don't set a symbol as a mandatory parameter into a method
-} catch (BinanceApi\Exception\BinanceException $e) {
+} catch (\BinanceApi\Exception\BinanceException $e) {
     // Exception with Binance related,
     // For example, don't set Api Keys to class
-} catch (BinanceApi\Exception\BinanceResponseException $e) {
+} catch (\BinanceApi\Exception\BinanceResponseException $e) {
     // This is exception throw, when binance return error message
     // https://binance-docs.github.io/apidocs/spot/en/#error-codes
-} catch (BinanceApi\Exception\MethodNotExistException $e) {
+} catch (\BinanceApi\Exception\MethodNotExistException $e) {
     // If method doesn't exist it will throw such exception
 } catch (\GuzzleHttp\Exception\GuzzleException $e) {
     // It's about Guzzle exception

@@ -2,9 +2,9 @@
 
 namespace BinanceApi\Tests\Binance\Analogs;
 
-use BinanceApi\Binance;
-use BinanceApi\Docs\MarketDataEndpoint\OrderBook;
-use BinanceApi\Docs\MarketDataEndpoint\RecentTradesList;
+use BinanceApi\Spot\Binance;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\OrderBook;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\RecentTradesList;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\Exception;

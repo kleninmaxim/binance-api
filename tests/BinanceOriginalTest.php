@@ -2,24 +2,24 @@
 
 namespace BinanceApi\Tests;
 
-use BinanceApi\BinanceOriginal;
-use BinanceApi\Docs\Const\BinanceApi\Endpoint;
-use BinanceApi\Docs\MarketDataEndpoint\CheckServerTime;
-use BinanceApi\Docs\MarketDataEndpoint\CompressedAggregateTradesList;
-use BinanceApi\Docs\MarketDataEndpoint\CurrentAveragePrice;
-use BinanceApi\Docs\MarketDataEndpoint\ExchangeInformation;
-use BinanceApi\Docs\MarketDataEndpoint\KlineCandlestickData;
-use BinanceApi\Docs\MarketDataEndpoint\OldTradeLookup;
-use BinanceApi\Docs\MarketDataEndpoint\OrderBook;
-use BinanceApi\Docs\MarketDataEndpoint\RecentTradesList;
-use BinanceApi\Docs\MarketDataEndpoint\SymbolOrderBookTicker;
-use BinanceApi\Docs\MarketDataEndpoint\SymbolPriceTicker;
-use BinanceApi\Docs\MarketDataEndpoint\TestConnectivity;
-use BinanceApi\Docs\MarketDataEndpoint\TickerPriceChangeStatistics24hr;
-use BinanceApi\Docs\MarketDataEndpoint\UIKlines;
-use BinanceApi\Docs\WalletEndpoints\SwitchOnOffBusdAndStableCoinsConversion;
+use BinanceApi\App\ResponseHandler\GuzzlePsr7ResponseHandler;
 use BinanceApi\Exception\MethodNotExistException;
-use BinanceApi\Helper\ResponseHandler\GuzzlePsr7ResponseHandler;
+use BinanceApi\Spot\BinanceSpotOriginal;
+use BinanceApi\Spot\Docs\Const\BinanceApi\Endpoint;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\CheckServerTime;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\CompressedAggregateTradesList;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\CurrentAveragePrice;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\ExchangeInformation;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\KlineCandlestickData;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\OldTradeLookup;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\OrderBook;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\RecentTradesList;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\SymbolOrderBookTicker;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\SymbolPriceTicker;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\TestConnectivity;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\TickerPriceChangeStatistics24hr;
+use BinanceApi\Spot\Docs\MarketDataEndpoint\UIKlines;
+use BinanceApi\Spot\Docs\WalletEndpoints\SwitchOnOffBusdAndStableCoinsConversion;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -33,7 +33,7 @@ class BinanceOriginalTest extends TestCase
 {
     public function test_check_class_is_resolved()
     {
-        $binance = new BinanceOriginal();
+        $binance = new BinanceSpotOriginal();
 
         $resolvedAlias = $binance->resolveAlias('ping');
 
@@ -42,7 +42,7 @@ class BinanceOriginalTest extends TestCase
 
     public function test_check_class_is_throw_exception_when_resolved_with_non_existing_alias()
     {
-        $binance = new BinanceOriginal();
+        $binance = new BinanceSpotOriginal();
 
         $this->expectException(MethodNotExistException::class);
 
@@ -54,7 +54,7 @@ class BinanceOriginalTest extends TestCase
      */
     public function test_add_new_alias_for_class()
     {
-        $binance = new BinanceOriginal();
+        $binance = new BinanceSpotOriginal();
 
         $nonExistingResolvedAlias = $this->createMock(Endpoint::class);
 
@@ -65,7 +65,7 @@ class BinanceOriginalTest extends TestCase
 
     public function test_expect_error_for_non_existing_method()
     {
-        $binance = new BinanceOriginal();
+        $binance = new BinanceSpotOriginal();
 
         $this->expectException(MethodNotExistException::class);
 
@@ -94,7 +94,7 @@ class BinanceOriginalTest extends TestCase
             )
             ->willReturn(new Response(body: SwitchOnOffBusdAndStableCoinsConversion::exampleResponse()));
 
-        $binance = new BinanceOriginal(client: $client);
+        $binance = new BinanceSpotOriginal(client: $client);
 
         $this->assertEquals(
             SwitchOnOffBusdAndStableCoinsConversion::exampleResponse(),
@@ -113,7 +113,7 @@ class BinanceOriginalTest extends TestCase
         ]));
         $handlerStack->push(Middleware::history($container));
 
-        $binance = new BinanceOriginal(client: new Client(['handler' => $handlerStack]));
+        $binance = new BinanceSpotOriginal(client: new Client(['handler' => $handlerStack]));
 
         $result = $binance->ping();
 
@@ -139,7 +139,7 @@ class BinanceOriginalTest extends TestCase
         ]));
         $handlerStack->push(Middleware::history($container));
 
-        $binance = new BinanceOriginal(new GuzzlePsr7ResponseHandler(), client: new Client(['handler' => $handlerStack]));
+        $binance = new BinanceSpotOriginal(new GuzzlePsr7ResponseHandler(), client: new Client(['handler' => $handlerStack]));
 
         $this->assertInstanceOf(ResponseInterface::class, $binance->ping());
     }
@@ -178,7 +178,7 @@ class BinanceOriginalTest extends TestCase
             new Response(body: SymbolOrderBookTicker::exampleResponse()['secondVersion']),
         ]));
 
-        $binance = new BinanceOriginal(client: new Client(['handler' => $handlerStack]));
+        $binance = new BinanceSpotOriginal(client: new Client(['handler' => $handlerStack]));
 
         foreach ($methods as $method => $response) {
             $this->assertEquals($response, $binance->{$method}());
