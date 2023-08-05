@@ -2,10 +2,10 @@
 
 namespace BinanceApi\Helper;
 
+use BinanceApi\Spot\Docs\GeneralInfo\GeneralApiInformation;
 use DateTime;
 use DateTimeZone;
 use Exception;
-use BinanceApi\Docs\GeneralInfo\GeneralApiInformation;
 
 class Carbon
 {

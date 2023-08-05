@@ -5,7 +5,7 @@ All methods you can find in `\BinanceApi\Binance` class in phpdoc
 ## Common part for all next requests
 
 ```php
-$binance = new \BinanceApi\Binance();
+$binance = new \BinanceApi\Spot\Binance();
 
 $binance->setOutputCallback(function ($output) {
     return $output['response']['data'];

@@ -87,7 +87,7 @@ to see more examples, include what each function returns
 ## Simple start
 
  ```php
- $binance = new \BinanceApi\Binance();
+ $binance = new \BinanceApi\Spot\Binance();
 
  $fullResult = $binance->depth('BTCUSDT', 2);
 
@@ -188,8 +188,9 @@ Array
 </details>
 
 ## If you want to use [testnet](https://testnet.binance.vision/)
+
 ```php
-$binanceTestNet = new \BinanceApi\Binance(TestNet::BASE_ENDPOINT);
+$binanceTestNet = new \BinanceApi\Spot\Binance(TestNet::BASE_ENDPOINT);
 
 $fullResult = $binance->depth('BTCUSDT', 2);
 ```
@@ -203,10 +204,11 @@ $binance->setApiKeys($apiKey, $secretKey);
 ```
 
 ## Handle often throws errors:
+
 ```php
 try {
     $result = $binance->depth('BTCUSDT', 2);
-} catch (BinanceApi\Exception\BinanceResponseException $e) {
+} catch (\BinanceApi\Exception\BinanceResponseException $e) {
     // This is exception throw, when binance return error message
     // https://binance-docs.github.io/apidocs/spot/en/#error-codes
 } catch (\GuzzleHttp\Exception\GuzzleException $e) {
@@ -249,7 +251,7 @@ At any places where you need to use time, use a binance microtime format
 You can get binance microtime now by function:
 
 ```php
-\BinanceApi\Docs\GeneralInfo\Signed::binanceMicrotime(); //1690113560956
+\BinanceApi\Spot\Docs\GeneralInfo\Signed::binanceMicrotime(); //1690113560956
 ```
 
 ## More examples
@@ -257,7 +259,7 @@ You can get binance microtime now by function:
 Common part for all next examples
 
 ```php
-$binance = new \BinanceApi\Binance();
+$binance = new \BinanceApi\Spot\Binance();
 
 $binance->setApiKeys($apiKey, $secretKey);
 

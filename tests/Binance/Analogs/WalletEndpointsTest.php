@@ -2,9 +2,9 @@
 
 namespace BinanceApi\Tests\Binance\Analogs;
 
-use BinanceApi\Binance;
-use BinanceApi\Docs\GeneralInfo\Signed;
-use BinanceApi\Docs\WalletEndpoints\Withdraw;
+use BinanceApi\Spot\Binance;
+use BinanceApi\Spot\Docs\GeneralInfo\Signed;
+use BinanceApi\Spot\Docs\WalletEndpoints\Withdraw;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\Exception;
